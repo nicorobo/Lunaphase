@@ -4,11 +4,12 @@ import Tonight from './Tonight';
 const App = () => (
 	<div
 		style={{
-			height: '100vh',
+			height: '100%',
 			display: 'flex',
 			flexDirection: 'column',
 			alignItems: 'center',
 			justifyContent: 'center',
+			marginTop: '1rem',
 		}}>
 		<Tonight />
 		<Calendar />
