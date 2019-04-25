@@ -2,23 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { select } from 'd3';
 import { getMoonIllumination } from 'suncalc';
 import { months, formatMonth, getCrescentGenerator, drawMoon } from './utils';
-import { foreground, background } from './colors';
 
 const Calendar = () => {
-	const [height, width] = [320, 850];
+	const [height, width] = [400, 820];
 	const [svg, setSvg] = useState(null);
 	const crescent = getCrescentGenerator(10);
 	useEffect(() => {
 		const calendar = select(svg)
 			.append('g')
-			.attr('transform', `translate(10, 15)`);
+			.attr('transform', `translate(50, 15)`);
 		calendar // Draw day labels
 			.selectAll('text')
 			.data(months[0])
 			.join('text')
 			.text((d) => new Date(d).getDate())
 			.attr('text-anchor', 'middle')
-			.attr('x', (d, i) => 70 + 25 * i)
+			.attr('x', (d, i) => 25 * i)
 			.attr('y', 0)
 			.style('fill', '#333')
 			.attr('font-size', '.8rem')
@@ -31,7 +30,7 @@ const Calendar = () => {
 			.data(months)
 			.join('g')
 			.attr('class', 'month')
-			.attr('transform', (d, i) => `translate(70, ${15 + 25 * i})`);
+			.attr('transform', (d, i) => `translate(0, ${15 + 25 * i})`);
 		const day = month
 			.selectAll('.day')
 			.data((d) => d)
@@ -54,8 +53,7 @@ const Calendar = () => {
 	}, [svg]);
 
 	return (
-		<div
-			style={{ maxWidth: '100%', overflow: 'scroll', '-webkit-overflow-scrolling': 'touch' }}>
+		<div className="calendar">
 			<svg ref={setSvg} height={height} width={width} />
 		</div>
 	);

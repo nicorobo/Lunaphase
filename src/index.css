@@ -12,11 +12,32 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	color: #333;
 }
-/* .header {
+
+.app {
+	height: 100%;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
+	justify-content: center;
+	margin-top: 1rem;
 }
-.title {
-	font-weight: bold;
+.calendar {
+	max-width: 100%;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+.tonight {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	font-size: 0.9rem;
-} */
+	font-weight: 300;
+	margin-bottom: 1rem;
+}
+.tonight-moon {
+	min-height: 80;
+	margin-bottom: 0.5rem;
+}
+.phase-text {
+	font-weight: bold;
+}

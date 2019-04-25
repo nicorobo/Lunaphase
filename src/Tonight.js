@@ -15,23 +15,10 @@ const Tonight = () => {
 		drawMoon(moon, (d) => crescent(phase), 38, 1);
 	}, [svg, phase]);
 	return (
-		<div
-			style={{
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'center',
-				fontSize: '0.9rem',
-				fontWeight: '300',
-				marginBottom: '1rem',
-			}}>
-			<svg
-				style={{ minHeight: 80, marginBottom: '.5rem' }}
-				ref={setSvg}
-				height={80}
-				width={80}
-			/>
+		<div className="tonight">
+			<svg className="tonight-moon" ref={setSvg} height={80} width={80} />
 			<div>
-				Current Phase: <span style={{ fontWeight: 'bold' }}>{phaseText}</span>
+				Current Phase: <span className="phase-text">{phaseText}</span>
 			</div>
 		</div>
 	);
