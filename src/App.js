@@ -1,6 +1,6 @@
 import React from 'react';
-import Calendar from './Calendar';
 import Tonight from './Tonight';
+import Calendar from './Calendar';
 const App = () => (
 	<div
 		style={{

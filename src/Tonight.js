@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { select } from 'd3';
 import { getMoonIllumination } from 'suncalc';
-import { getCrescentGenerator } from './utils';
-import { foreground, background } from './colors';
+import { getCrescentGenerator, drawMoon } from './utils';
 
 const Tonight = () => {
 	const [svg, setSvg] = useState();
@@ -13,16 +12,7 @@ const Tonight = () => {
 		const moon = select(svg)
 			.append('g')
 			.attr('transform', 'translate(40, 40)');
-		moon.append('circle')
-			.attr('cx', 0)
-			.attr('cy', 0)
-			.attr('r', 38)
-			.style('fill', background)
-			.style('stroke-width', 1)
-			.style('stroke', foreground);
-		moon.append('path')
-			.attr('d', crescent(phase))
-			.style('fill', foreground);
+		drawMoon(moon, (d) => crescent(phase), 38, 1);
 	}, [svg, phase]);
 	return (
 		<div
