@@ -62,7 +62,8 @@ const Calendar = () => {
 	}, [svg]);
 
 	return (
-		<div style={{ maxWidth: '100%', overflow: 'auto' }}>
+		<div
+			style={{ maxWidth: '100%', overflow: 'scroll', '-webkit-overflow-scrolling': 'touch' }}>
 			<svg ref={setSvg} height={height} width={width} />
 		</div>
 	);
