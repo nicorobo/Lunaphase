@@ -38,7 +38,7 @@ body {
 }
 
 .day {
-	opacity: 0.75;
+	opacity: 0.6;
 }
 .day.active {
 	opacity: 1;
@@ -75,4 +75,18 @@ body {
 
 .phase-text {
 	font-weight: bold;
+}
+
+.times {
+	margin-top: 0.5rem;
+	/* color: #555; */
+	display: flex;
+	font-size: 0.75rem;
+	text-transform: lowercase;
+}
+.times span {
+	font-weight: bold;
+}
+.moonrise {
+	margin-right: 1rem;
 }

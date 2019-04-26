@@ -8,7 +8,8 @@ import {
 	timeFormat,
 	timeHour,
 } from 'd3';
-import { getMoonIllumination, getMoonPosition } from 'suncalc';
+import { useState, useEffect } from 'react';
+import { getMoonIllumination } from 'suncalc';
 
 export const months = timeMonth.range(timeYear(Date.now()), timeYear.ceil(Date.now())).map((m) => {
 	return timeDay.range(timeMonth(timeDay.offset(m)), timeMonth.ceil(timeDay.offset(m)));
@@ -18,6 +19,7 @@ const toDegrees = (r) => r * (180 / Math.PI);
 
 export const formatMonth = timeFormat('%b');
 export const formatDay = timeFormat('%B %e');
+export const formatTime = timeFormat('%-I:%M %p');
 export const formatUnix = timeFormat('%Q');
 
 export const isSameDay = (d1, d2) => {
@@ -37,12 +39,7 @@ export const getCrescentGenerator = (scale) => {
 };
 
 export const drawMoon = (el, crescent, radius) => {
-	const lat = 30.267153;
-	const lng = -97.743057;
-	const rotate = (d) => {
-		const ill = getMoonIllumination(d);
-		return `rotate(${toDegrees(ill.angle)})`;
-	};
+	const rotate = (d) => `rotate(${toDegrees(getMoonIllumination(d).angle)})`;
 	el.append('circle')
 		.attr('class', 'moon')
 		.attr('transform', rotate)
@@ -53,4 +50,15 @@ export const drawMoon = (el, crescent, radius) => {
 		.attr('class', 'moon-phase')
 		.attr('transform', rotate)
 		.attr('d', (d) => crescent(getMoonIllumination(d).phase));
+};
+
+export const useLocation = () => {
+	const [location, setLocation] = useState([null, null]);
+	useEffect(() => {
+		navigator.geolocation.getCurrentPosition((pos, a, b) => {
+			const { latitude, longitude } = pos.coords;
+			setLocation([latitude, longitude]);
+		});
+	}, []);
+	return [location[0], location[1]];
 };

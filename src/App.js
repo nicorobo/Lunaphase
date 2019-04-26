@@ -4,7 +4,6 @@ import Calendar from './Calendar';
 import { evening } from './utils';
 const App = () => {
 	const [active, setActive] = useState(evening(Date.now()));
-	console.log(active);
 	return (
 		<div className="app">
 			<Tonight active={active} />

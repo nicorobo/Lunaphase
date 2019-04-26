@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { select } from 'd3';
-import { getMoonIllumination } from 'suncalc';
-import { getCrescentGenerator, drawMoon, formatDay } from './utils';
+import { getMoonIllumination, getMoonTimes, getMoonPosition } from 'suncalc';
+import { getCrescentGenerator, drawMoon, formatDay, formatTime, useLocation } from './utils';
 const Tonight = ({ active }) => {
+	const [lat, lng] = useLocation();
 	const [svg, setSvg] = useState();
 	const { phase } = getMoonIllumination(active);
+	const times = lat === null ? {} : getMoonTimes(active, lat, lng);
 	const phaseText = getPhaseText(phase);
 	const crescent = getCrescentGenerator(38);
+	console.log(times);
 	useEffect(() => {
 		const moon = select(svg)
 			.datum(active)
@@ -20,6 +23,14 @@ const Tonight = ({ active }) => {
 			<svg className="tonight-moon" ref={setSvg} height={80} width={80} />
 			<div>
 				{formatDay(active)}: <span className="phase-text">{phaseText}</span>
+			</div>
+			<div className="times">
+				<div className="moonrise">
+					<span>rise:</span> {times.rise ? formatTime(times.rise) : '--:--'}
+				</div>
+				<div className="moonset">
+					<span>set:</span> {times.set ? formatTime(times.set) : '--:--'}
+				</div>
 			</div>
 		</div>
 	);
