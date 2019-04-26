@@ -1,5 +1,4 @@
 import { geoCircle, geoOrthographic, geoPath, timeDay, timeMonth, timeYear, timeFormat } from 'd3';
-import { foreground, background } from './colors';
 
 export const months = timeMonth.range(timeYear(Date.now()), timeYear.ceil(Date.now())).map((m) => {
 	return timeDay.range(timeMonth(timeDay.offset(m)), timeMonth.ceil(timeDay.offset(m)));

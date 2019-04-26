@@ -11,7 +11,7 @@ const Header = () => {
 		const moon = select(svg)
 			.append('g')
 			.attr('transform', 'translate(20, 20)');
-		drawMoon(moon, (d) => crescent(phase), 10, 0.5, '#333', '#eee');
+		drawMoon(moon, (d) => crescent(phase), 10);
 		return () => moon.remove();
 	}, [svg, phase]);
 	return (
