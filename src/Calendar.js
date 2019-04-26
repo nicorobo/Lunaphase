@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { select } from 'd3';
 import { getMoonIllumination } from 'suncalc';
-import { months, formatMonth, getCrescentGenerator, drawMoon } from './utils';
+import { months, formatMonth, isSameDay, getCrescentGenerator, drawMoon } from './utils';
 
-const Calendar = () => {
+const Calendar = ({ active, setActive }) => {
 	const [height, width] = [400, 820];
 	const [svg, setSvg] = useState(null);
 	const crescent = getCrescentGenerator(10);
@@ -15,12 +15,10 @@ const Calendar = () => {
 			.selectAll('text')
 			.data(months[0])
 			.join('text')
-			.text((d) => new Date(d).getDate())
-			.attr('text-anchor', 'middle')
+			.attr('class', 'label-day')
 			.attr('x', (d, i) => 25 * i)
 			.attr('y', 0)
-			.style('fill', '#333')
-			.attr('font-size', '.8rem')
+			.text((d) => new Date(d).getDate())
 			.attr('font-weight', (d) =>
 				new Date(d).getDate() === new Date().getDate() ? 'bold' : '300'
 			);
@@ -35,18 +33,16 @@ const Calendar = () => {
 			.selectAll('.day')
 			.data((d) => d)
 			.join('g')
-			.attr('class', 'day')
+			.attr('class', (d) => (isSameDay(active, d) ? 'day active' : 'day'))
 			.attr('transform', (d, i) => `translate(${25 * i}, 0)`);
-		drawMoon(day, (d) => crescent(getMoonIllumination(d).phase), 10, 0.5);
+		drawMoon(day, (d) => crescent(getMoonIllumination(d).phase), 10);
 
 		month // Draw month labels
 			.append('text')
+			.attr('class', 'label-month')
 			.attr('x', -18)
 			.attr('y', 3)
-			.style('fill', '#333')
 			.text((d) => formatMonth(d[0]))
-			.attr('text-anchor', 'end')
-			.attr('font-size', '.8rem')
 			.attr('font-weight', (d) =>
 				new Date(d[0]).getMonth() === new Date().getMonth() ? 'bold' : '300'
 			);

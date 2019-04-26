@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { select } from 'd3';
 import { getMoonIllumination } from 'suncalc';
-import { getCrescentGenerator, drawMoon } from './utils';
-
-const Tonight = () => {
+import { getCrescentGenerator, drawMoon, formatDay } from './utils';
+const Tonight = ({ active }) => {
 	const [svg, setSvg] = useState();
-	const { phase } = getMoonIllumination(Date.now());
+	const { phase } = getMoonIllumination(active);
 	const phaseText = getPhaseText(phase);
 	const crescent = getCrescentGenerator(38);
 	useEffect(() => {
 		const moon = select(svg)
 			.append('g')
 			.attr('transform', 'translate(40, 40)');
-		drawMoon(moon, (d) => crescent(phase), 38, 1);
+		drawMoon(moon, (d) => crescent(phase), 38);
 	}, [svg, phase]);
 	return (
 		<div className="tonight">
 			<svg className="tonight-moon" ref={setSvg} height={80} width={80} />
 			<div>
-				Current Phase: <span className="phase-text">{phaseText}</span>
+				{formatDay(active)}: <span className="phase-text">{phaseText}</span>
 			</div>
 		</div>
 	);

@@ -26,6 +26,36 @@ body {
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
 }
+
+.moon {
+	fill: #ffd98e;
+	stroke: #0c084c;
+	stroke-width: 0.5;
+}
+
+.moon-phase {
+	fill: #0c084c;
+}
+
+.day {
+	opacity: 0.5;
+}
+.day.active {
+	opacity: 1;
+}
+
+.label-month {
+	fill: #333;
+	text-anchor: end;
+	font-size: 0.8rem;
+}
+
+.label-day {
+	fill: #333;
+	text-anchor: middle;
+	font-size: 0.8rem;
+}
+
 .tonight {
 	display: flex;
 	flex-direction: column;
@@ -34,10 +64,12 @@ body {
 	font-weight: 300;
 	margin-bottom: 1rem;
 }
+
 .tonight-moon {
 	min-height: 80;
 	margin-bottom: 0.5rem;
 }
+
 .phase-text {
 	font-weight: bold;
 }

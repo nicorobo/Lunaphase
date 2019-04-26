@@ -6,7 +6,12 @@ export const months = timeMonth.range(timeYear(Date.now()), timeYear.ceil(Date.n
 });
 
 export const formatMonth = timeFormat('%b');
+export const formatDay = timeFormat('%B %e');
+export const formatUnix = timeFormat('%Q');
 
+export const isSameDay = (d1, d2) => {
+	return formatUnix(timeDay.floor(d1)) === formatUnix(timeDay.floor(d2));
+};
 export const getCrescentGenerator = (scale, t = 3) => {
 	const circle = geoCircle();
 	const projection = geoOrthographic()
@@ -16,15 +21,13 @@ export const getCrescentGenerator = (scale, t = 3) => {
 	return (phase) => path(circle.center([360 * -phase, 0])());
 };
 
-export const drawMoon = (el, path, radius, strokeWidth, fg = foreground, bg = background) => {
+export const drawMoon = (el, path, radius, strokeWidth) => {
 	el.append('circle')
+		.attr('class', 'moon')
 		.attr('cx', 0)
 		.attr('cy', 0)
-		.attr('r', radius)
-		.style('fill', bg)
-		.style('stroke-width', strokeWidth)
-		.style('stroke', fg);
+		.attr('r', radius);
 	el.append('path')
-		.attr('d', path)
-		.style('fill', fg);
+		.attr('class', 'moon-phase')
+		.attr('d', path);
 };
