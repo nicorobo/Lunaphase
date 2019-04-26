@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { select, timeHour } from 'd3';
-import { getMoonIllumination } from 'suncalc';
 import { months, formatMonth, isSameDay, evening, getCrescentGenerator, drawMoon } from './utils';
 
 const Calendar = ({ active, setActive }) => {
@@ -38,14 +37,6 @@ const Calendar = ({ active, setActive }) => {
 			.attr('class', (d) => (isSameDay(active, d) ? 'day active' : 'day'))
 			.attr('transform', (d, i) => `translate(${25 * i}, 0)`)
 			.on('click', (d) => setActive(evening(d))); // Evening shouldn't be needed, but data was still midnight for some reason?
-		drawMoon(
-			day.current,
-			(d) => {
-				console.log('draw moon: ', d);
-				return crescent(getMoonIllumination(d).phase);
-			},
-			10
-		);
 		month.current // Draw month labels
 			.append('text')
 			.attr('class', 'label-month')
@@ -57,7 +48,9 @@ const Calendar = ({ active, setActive }) => {
 			);
 		return () => calendar.current.remove();
 	}, [svg]);
-
+	useEffect(() => {
+		drawMoon(day.current, crescent, 10);
+	}, [svg]);
 	useEffect(() => {
 		// Only update class, don't rerender moons
 		month.current

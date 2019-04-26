@@ -38,7 +38,7 @@ body {
 }
 
 .day {
-	opacity: 0.5;
+	opacity: 0.75;
 }
 .day.active {
 	opacity: 1;

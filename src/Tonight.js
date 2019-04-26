@@ -9,9 +9,10 @@ const Tonight = ({ active }) => {
 	const crescent = getCrescentGenerator(38);
 	useEffect(() => {
 		const moon = select(svg)
+			.datum(active)
 			.append('g')
 			.attr('transform', 'translate(40, 40)');
-		drawMoon(moon, (d) => crescent(phase), 38);
+		drawMoon(moon, crescent, 38);
 		return () => moon.remove();
 	}, [svg, phase]);
 	return (
@@ -25,7 +26,7 @@ const Tonight = ({ active }) => {
 };
 
 const getPhaseText = (phase) => {
-	const margin = 0.02; // May need to be updated, this is 1/31. Should it be 1/62?
+	const margin = 0.019; // May need to be updated, this is 1/31. Should it be 1/62?
 	if (phase >= 1 - margin || phase < margin) return 'New Moon';
 	else if (phase < 0.25 - margin) return 'Waxing Crescent';
 	else if (phase < 0.25 + margin) return 'First Quarter';
