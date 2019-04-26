@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { select } from 'd3';
+import { select, timeHour } from 'd3';
 import { getMoonIllumination } from 'suncalc';
-import { months, formatMonth, isSameDay, getCrescentGenerator, drawMoon } from './utils';
+import { months, formatMonth, isSameDay, evening, getCrescentGenerator, drawMoon } from './utils';
 
 const Calendar = ({ active, setActive }) => {
 	const [height, width] = [400, 820];
@@ -33,12 +33,19 @@ const Calendar = ({ active, setActive }) => {
 			.attr('transform', (d, i) => `translate(0, ${15 + 25 * i})`);
 		day.current = month.current
 			.selectAll('.day')
-			.data((d) => d)
+			.data((d) => d.map((day) => timeHour.offset(day, 23)))
 			.join('g')
 			.attr('class', (d) => (isSameDay(active, d) ? 'day active' : 'day'))
 			.attr('transform', (d, i) => `translate(${25 * i}, 0)`)
-			.on('click', (d) => setActive(d));
-		drawMoon(day.current, (d) => crescent(getMoonIllumination(d).phase), 10);
+			.on('click', (d) => setActive(evening(d))); // Evening shouldn't be needed, but data was still midnight for some reason?
+		drawMoon(
+			day.current,
+			(d) => {
+				console.log('draw moon: ', d);
+				return crescent(getMoonIllumination(d).phase);
+			},
+			10
+		);
 		month.current // Draw month labels
 			.append('text')
 			.attr('class', 'label-month')

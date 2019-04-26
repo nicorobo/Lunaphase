@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { select, timeDay } from 'd3';
+import { select } from 'd3';
 import { getMoonIllumination } from 'suncalc';
 import { getCrescentGenerator, drawMoon, formatDay } from './utils';
 const Tonight = ({ active }) => {
 	const [svg, setSvg] = useState();
-	console.log(timeDay.ceil(active));
-	const { phase } = getMoonIllumination(timeDay.ceil(active));
+	const { phase } = getMoonIllumination(active);
 	const phaseText = getPhaseText(phase);
 	const crescent = getCrescentGenerator(38);
 	useEffect(() => {

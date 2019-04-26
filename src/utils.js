@@ -1,4 +1,13 @@
-import { geoCircle, geoOrthographic, geoPath, timeDay, timeMonth, timeYear, timeFormat } from 'd3';
+import {
+	geoCircle,
+	geoOrthographic,
+	geoPath,
+	timeDay,
+	timeMonth,
+	timeYear,
+	timeFormat,
+	timeHour,
+} from 'd3';
 
 export const months = timeMonth.range(timeYear(Date.now()), timeYear.ceil(Date.now())).map((m) => {
 	return timeDay.range(timeMonth(timeDay.offset(m)), timeMonth.ceil(timeDay.offset(m)));
@@ -11,6 +20,10 @@ export const formatUnix = timeFormat('%Q');
 export const isSameDay = (d1, d2) => {
 	return formatUnix(timeDay.floor(d1)) === formatUnix(timeDay.floor(d2));
 };
+
+// Returns the given date at 11PM
+export const evening = (d) => timeHour.offset(timeDay.floor(d), 23);
+
 export const getCrescentGenerator = (scale, t = 3) => {
 	const circle = geoCircle();
 	const projection = geoOrthographic()
