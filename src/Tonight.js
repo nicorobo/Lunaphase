@@ -9,7 +9,6 @@ const Tonight = ({ active }) => {
 	const times = lat === null ? {} : getMoonTimes(active, lat, lng);
 	const phaseText = getPhaseText(phase);
 	const crescent = getCrescentGenerator(38);
-	console.log(times);
 	useEffect(() => {
 		const moon = select(svg)
 			.datum(active)

@@ -27,7 +27,7 @@ export const isSameDay = (d1, d2) => {
 };
 
 // Returns the given date at 11PM
-export const evening = (d) => timeHour.offset(timeDay.floor(d), 23);
+export const evening = (d) => timeHour.offset(timeDay.floor(d), 22);
 
 export const getCrescentGenerator = (scale) => {
 	const circle = geoCircle();
