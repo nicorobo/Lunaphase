@@ -36,7 +36,7 @@ const Tonight = ({ active }) => {
 };
 
 const getPhaseText = (phase) => {
-	const margin = 0.019; // May need to be updated, this is 1/31. Should it be 1/62?
+	const margin = 0.0195;
 	if (phase >= 1 - margin || phase < margin) return 'New Moon';
 	else if (phase < 0.25 - margin) return 'Waxing Crescent';
 	else if (phase < 0.25 + margin) return 'First Quarter';

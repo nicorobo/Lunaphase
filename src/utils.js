@@ -1,4 +1,5 @@
 import {
+	select,
 	geoCircle,
 	geoOrthographic,
 	geoPath,
@@ -9,7 +10,7 @@ import {
 	timeHour,
 } from 'd3';
 import { useState, useEffect } from 'react';
-import { getMoonIllumination } from 'suncalc';
+import { getMoonIllumination, getMoonPosition } from 'suncalc';
 
 export const months = timeMonth.range(timeYear(Date.now()), timeYear.ceil(Date.now())).map((m) => {
 	return timeDay.range(timeMonth(timeDay.offset(m)), timeMonth.ceil(timeDay.offset(m)));
@@ -40,6 +41,12 @@ export const getCrescentGenerator = (scale) => {
 
 export const drawMoon = (el, crescent, radius) => {
 	const rotate = (d) => `rotate(${toDegrees(getMoonIllumination(d).angle)})`;
+	// el.classed('full', (d) => {
+	// 	const phase = getMoonIllumination(d).phase;
+	// 	const margin = 0.0195;
+	// 	return phase > 0.5 - margin && phase < 0.5 + margin;
+	// });
+	console.log(el);
 	el.append('circle')
 		.attr('class', 'moon')
 		.attr('transform', rotate)

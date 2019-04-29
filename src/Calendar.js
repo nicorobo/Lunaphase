@@ -34,7 +34,8 @@ const Calendar = ({ active, setActive }) => {
 			.selectAll('.day')
 			.data((d) => d.map((day) => timeHour.offset(day, 23)))
 			.join('g')
-			.attr('class', (d) => (isSameDay(active, d) ? 'day active' : 'day'))
+			.classed('day', true)
+			.classed('active', (d) => isSameDay(active, d))
 			.attr('transform', (d, i) => `translate(${25 * i}, 0)`)
 			.on('click', (d) => setActive(evening(d))); // Evening shouldn't be needed, but data was still midnight for some reason?
 		month.current // Draw month labels
