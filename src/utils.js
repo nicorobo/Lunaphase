@@ -30,6 +30,18 @@ export const isSameDay = (d1, d2) => {
 // Returns the given date at 11PM
 export const evening = (d) => timeHour.offset(timeDay.floor(d), 22);
 
+export const getPhaseIndex = (phase) => {
+	const margin = 0.0195;
+	if (phase >= 1 - margin || phase < margin) return 0;
+	else if (phase < 0.25 - margin) return 1;
+	else if (phase < 0.25 + margin) return 2;
+	else if (phase < 0.5 - margin) return 3;
+	else if (phase < 0.5 + margin) return 4;
+	else if (phase < 0.75 - margin) return 5;
+	else if (phase < 0.75 + margin) return 6;
+	else return 7;
+};
+
 export const getCrescentGenerator = (scale) => {
 	const circle = geoCircle();
 	const projection = geoOrthographic()
@@ -41,14 +53,11 @@ export const getCrescentGenerator = (scale) => {
 
 export const drawMoon = (el, crescent, radius) => {
 	const rotate = (d) => `rotate(${toDegrees(getMoonIllumination(d).angle)})`;
-	// el.classed('full', (d) => {
-	// 	const phase = getMoonIllumination(d).phase;
-	// 	const margin = 0.0195;
-	// 	return phase > 0.5 - margin && phase < 0.5 + margin;
-	// });
-	console.log(el);
 	el.append('circle')
-		.attr('class', 'moon')
+		.attr('class', (d) => {
+			const phase = getMoonIllumination(d).phase;
+			return getPhaseIndex(phase) === 4 ? 'moon full' : 'moon';
+		})
 		.attr('transform', rotate)
 		.attr('cx', 0)
 		.attr('cy', 0)

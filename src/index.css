@@ -33,6 +33,10 @@ body {
 	stroke-width: 0.5;
 }
 
+.moon.full {
+	fill: #ffb68e;
+}
+
 .moon-phase {
 	fill: #0c084c;
 }

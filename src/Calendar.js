@@ -34,7 +34,7 @@ const Calendar = ({ active, setActive }) => {
 			.selectAll('.day')
 			.data((d) => d.map((day) => timeHour.offset(day, 23)))
 			.join('g')
-			.classed('day', true)
+			.classed('day', (d) => true)
 			.classed('active', (d) => isSameDay(active, d))
 			.attr('transform', (d, i) => `translate(${25 * i}, 0)`)
 			.on('click', (d) => setActive(evening(d))); // Evening shouldn't be needed, but data was still midnight for some reason?
